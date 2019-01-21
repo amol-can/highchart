@@ -1,9 +1,18 @@
 /**
  * Script for basic bar chart
  */
+var jsonData = $.ajax({
+    url: "sample.json",
+    dataType: "json",
+    async: false
+    }).responseText;
+console.log("Data from JSON: ",jsonData);
+var json = JSON.parse(jsonData);
+var cat = json.xAxis;
+console.log("cat: ", cat);
 
-Highcharts.chart('BarChartContainer', {
-  chart: {
+Highcharts.chart('BarChartContainer', {	
+	chart: {
     type: 'bar'
   },
   title: {
@@ -13,7 +22,7 @@ Highcharts.chart('BarChartContainer', {
     text: 'Source: <a href="https://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>'
   },
   xAxis: {
-    categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
+    categories: cat,
     title: {
       text: null
     }
