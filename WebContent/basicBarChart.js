@@ -2,13 +2,13 @@
  * Script for basic bar chart
  */
 var jsonData = $.ajax({
-    url: "sample.json",
+    url: "getData",
     dataType: "json",
     async: false
     }).responseText;
 console.log("Data from JSON: ",jsonData);
 var json = JSON.parse(jsonData);
-var cat = json.xAxis;
+var cat = json.xAxis.categories;
 console.log("cat: ", cat);
 
 Highcharts.chart('BarChartContainer', {	
