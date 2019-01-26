@@ -6,23 +6,33 @@ var jsonData = $.ajax({
     dataType: "json",
     async: false
     }).responseText;
+
 console.log("Data from JSON: ",jsonData);
 var json = JSON.parse(jsonData);
-var cat = json.xAxis.categories;
-console.log("cat: ", cat);
+var course = new Array();
+var dropCount = new Array();
+var serviveCount = new Array();
+for(var i = 0; i < json.length; i++){
+  var dropData = json[i];
+  dropCount[i] = dropData.drop;
+  serviveCount[i] = dropData.servive;
+  course[i] = dropData.course;
+}
+console.log("course Data: ",course);
+console.log("Servive Data: ",serviveCount);
 
-Highcharts.chart('BarChartContainer', {	
-	chart: {
+Highcharts.chart('BarChartContainer', { 
+  chart: {
     type: 'bar'
   },
   title: {
-    text: 'Historic World Population by Region'
+    text: 'Dropout details by Course'
   },
   subtitle: {
-    text: 'Source: <a href="https://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>'
+    text: 'Source: <a href="http://skala.in">skala.in</a>'
   },
   xAxis: {
-    categories: cat,
+    categories: course,
     title: {
       text: null
     }
@@ -38,7 +48,7 @@ Highcharts.chart('BarChartContainer', {
     }
   },
   tooltip: {
-    valueSuffix: ' millions'
+    valueSuffix: ' Students'
   },
   plotOptions: {
     bar: {
@@ -63,9 +73,9 @@ Highcharts.chart('BarChartContainer', {
   },
   series: [{
     name: 'Dropout',
-    data: [107, 31, 635, 203, 2]
+    data: dropCount
   }, {
     name: 'Servive',
-    data: [133, 156, 947, 408, 6]
+    data: serviveCount
   }]
 });

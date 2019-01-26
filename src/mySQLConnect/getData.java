@@ -5,44 +5,47 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.mysql.jdbc.Statement;
 
-public class getData {
+import bean.DropoutData;
 
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+public class GetData {
 
-		JsonObject jObj = new JsonObject();
-		ArrayList<String> arrL = new ArrayList<>();
-		
-		
+	public String getDropoutData() {
+		//TODO: get connection object of DB
 		ConnectDb cDb =new ConnectDb();
-		Connection conn = cDb.dbConnection();
 		
-		/**
-		 * Get Resultset
-		 */
-		Statement stmt =(Statement) conn.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT SUM(Drop_Count) as dper, COUNT(Drop_Count) "
-				+ "as sper, Course from dropout_dashboard GROUP BY Course "
-				+ "order by (( SUM(Drop_Count) / COUNT(Drop_Count))* 100) DESC");
-		
-		while(rs.next()) {
-			System.out.println("=================================");
-			System.out.println("Dropout Count: "+rs.getString(1));
-			System.out.println("Servive Count: "+rs.getString(2));
-			System.out.println("Branch: "+rs.getString(3));
-			
-			arrL.add(rs.getString(1));
-			arrL.add(rs.getString(2));
-			arrL.add(rs.getString(3));	
-			
+		JSONArray jArray = new JSONArray();
+		try {
+			Connection conn = cDb.dbConnection();	
+
+			Statement stmt =(Statement) conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT SUM(Drop_Count) as dper, COUNT(Drop_Count) "
+					+ "as sper, Course from dropout_dashboard GROUP BY Course "
+					+ "order by (( SUM(Drop_Count) / COUNT(Drop_Count))* 100) DESC");
+
+			while(rs.next()) {
+				System.out.println("=================================");
+				System.out.println("Dropout Count: "+rs.getString(1));
+				System.out.println("Servive Count: "+rs.getString(2));
+				System.out.println("Branch: "+rs.getString(3));
+
+				JSONObject jObj = new JSONObject();
+				jObj.put("course", rs.getString("Course"));
+				jObj.put("servive", rs.getInt("sper"));
+				jObj.put("drop", rs.getInt("dper"));
+				jArray.add(jObj);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		System.out.println(arrL.size());
-
+		System.out.println(jArray.toJSONString());
+		return jArray.toJSONString();
 	}
-
 }
 
 
