@@ -1,6 +1,7 @@
 /**
  * Script for basic bar chart
  */
+// TODO: get json data from servlet and parse it
 var jsonData = $.ajax({
     url: "getData",
     dataType: "json",
@@ -9,30 +10,32 @@ var jsonData = $.ajax({
 
 console.log("Data from JSON: ",jsonData);
 var json = JSON.parse(jsonData);
-var course = new Array();
+var courseList = new Array();
 var dropCount = new Array();
 var serviveCount = new Array();
 for(var i = 0; i < json.length; i++){
   var dropData = json[i];
   dropCount[i] = dropData.drop;
   serviveCount[i] = dropData.servive;
-  course[i] = dropData.course;
+  courseList[i] = dropData.course;
 }
-console.log("course Data: ",course);
+console.log("course Data: ",courseList);
 console.log("Servive Data: ",serviveCount);
+
+//TODO: render the barchart
 
 Highcharts.chart('BarChartContainer', { 
   chart: {
     type: 'bar'
   },
   title: {
-    text: 'Dropout details by Course'
+    text: 'Dropout details by course'
   },
   subtitle: {
     text: 'Source: <a href="http://skala.in">skala.in</a>'
   },
   xAxis: {
-    categories: course,
+    categories: courseList,
     title: {
       text: null
     }

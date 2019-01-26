@@ -15,7 +15,6 @@ public class getJson extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		GetData gData = new GetData();
 		String dropData = gData.getDropoutData();
-		System.out.println(dropData.toString());
 		out.println(dropData);
 		//out.print("{ \"xAxis\":{ \"categories\":[\"Africa\", \"America\", \"Asia\",\"Europe\", \"Oceania\" ] }}");		
 	}
