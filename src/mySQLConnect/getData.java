@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import com.google.gson.JsonArray;
 import com.mysql.jdbc.Statement;
 
 import bean.DropoutData;
@@ -29,10 +28,10 @@ public class GetData {
 					+ "order by (( SUM(Drop_Count) / COUNT(Drop_Count))* 100) DESC");
 
 			while(rs.next()) {
-				System.out.println("=================================");
+				/*System.out.println("=================================");
 				System.out.println("Dropout Count: "+rs.getString(1));
 				System.out.println("Servive Count: "+rs.getString(2));
-				System.out.println("Branch: "+rs.getString(3));
+				System.out.println("Branch: "+rs.getString(3));*/
 
 				JSONObject jObj = new JSONObject();
 				jObj.put("course", rs.getString("Course"));
@@ -43,7 +42,7 @@ public class GetData {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(jArray.toJSONString());
+		System.out.println("column chart data from DB: "+jArray.toJSONString());
 		return jArray.toJSONString();
 	}
 }
