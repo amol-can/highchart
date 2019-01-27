@@ -6,7 +6,7 @@ var lineJsonData = $.ajax({
 	async: false
 }).responseText;
 
-console.log("Line chart data from JSON: ",jsonData);
+console.log("Line chart data from JSON: ",lineJsonData);
 var json = JSON.parse(lineJsonData);
 var totalCount = new Array();
 var dropCount = new Array();
