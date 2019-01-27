@@ -8,3 +8,9 @@
 #pieChartContainer{
 	height: 400px
 }
+#columnChartContainer{
+	height: 400px; 
+    min-width: 310px; 
+    max-width: 800px;
+    margin: 0 auto;
+}
