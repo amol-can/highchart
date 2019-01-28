@@ -4,15 +4,15 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.Statement;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import com.mysql.jdbc.Statement;
 
 import bean.DropoutData;
 
-public class GetData {
+public class GetData {	
 
 	public String getDropoutData() {
 		//TODO: get connection object of DB
@@ -22,7 +22,7 @@ public class GetData {
 		try {
 			Connection conn = cDb.dbConnection();	
 
-			Statement stmt =(Statement) conn.createStatement();
+			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT SUM(Drop_Count) as dper, COUNT(Drop_Count) "
 					+ "as sper, Course from dropout_dashboard GROUP BY Course "
 					+ "order by (( SUM(Drop_Count) / COUNT(Drop_Count))* 100) DESC");

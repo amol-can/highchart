@@ -2,11 +2,11 @@ package mySQLConnect;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import com.mysql.jdbc.Statement;
 
 public class LineChartData {
 
@@ -18,7 +18,7 @@ public class LineChartData {
 		try {
 			Connection conn = cDb.dbConnection();	
 
-			Statement stmt =(Statement) conn.createStatement();
+			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT COUNT(*) AS total,SUM(Drop_Count) AS dropout, "
 					+ "(COUNT(*) - SUM(Drop_Count)) as servive, batch from dropout_dashboard "
 					+ "GROUP BY batch  ORDER BY batch");

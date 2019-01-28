@@ -2,11 +2,11 @@ package mySQLConnect;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import com.mysql.jdbc.Statement;
 
 public class PieChartData {
 	
@@ -18,7 +18,7 @@ public class PieChartData {
 		try {
 			Connection conn = cDb.dbConnection();	
 
-			Statement stmt =(Statement) conn.createStatement();
+			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT SUM(Drop_Count) as drpCount,(SUM(Drop_Count) / SUM(Enroll_Count)  * 100) as per ,"
 					+ " Age FROM `dropout_dashboard` GROUP by Age ORDER BY per DESC");
 
